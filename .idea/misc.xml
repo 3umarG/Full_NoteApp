@@ -5,6 +5,8 @@
       <map>
         <entry key="..\:/android/KotlinProjects/NoteApp/app/src/main/res/drawable-v24/bottom_sheet_rounded.xml" value="0.1825" />
         <entry key="..\:/android/KotlinProjects/NoteApp/app/src/main/res/drawable-v24/ic_round_add_24.xml" value="0.193" />
+        <entry key="..\:/android/KotlinProjects/NoteApp/app/src/main/res/drawable-v24/shape_image.xml" value="0.1825" />
+        <entry key="..\:/android/KotlinProjects/NoteApp/app/src/main/res/layout/custom_bottom_sheet_choose_color.xml" value="0.5" />
         <entry key="..\:/android/KotlinProjects/NoteApp/app/src/main/res/layout/fragment_notes.xml" value="0.2" />
       </map>
     </option>
