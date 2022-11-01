@@ -109,7 +109,7 @@
                     android:fontFamily="@font/google_sans_medium"
                     android:hint="@string/note_title"
                     android:importantForAutofill="no"
-                    android:inputType="none"
+                    android:inputType="text"
                     android:paddingStart="2dp"
                     android:textColor="@color/black"
                     android:textSize="20sp"
