@@ -6,9 +6,11 @@ import android.text.Editable
 import android.text.TextWatcher
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import android.widget.PopupMenu
 import androidx.core.content.ContextCompat.getSystemService
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -106,11 +108,30 @@ class NotesFragment : Fragment() {
                 val action = NotesFragmentDirections.actionNotesFragmentToSaveOrDeleteFragment(note)
                 findNavController().navigate(action)
             }
+
+            override fun onLongItemClick(note: Note, view: View) {
+                popUpMenu(note , view)
+            }
         })
         binding.recyclerView.apply {
             adapter = noteAdapter
             layoutManager = LinearLayoutManager(context)
         }
+    }
+
+    private fun popUpMenu(note: Note, view: View) {
+        val popup = PopupMenu(context, view)
+        popup.setOnMenuItemClickListener {
+            when (it.itemId) {
+                R.id.popup_delete -> {
+                    noteViewModel.deleteNote(note)
+                }
+
+            }
+            false
+        }
+        popup.inflate(R.menu.popup_menu)
+        popup.show()
     }
 
 }

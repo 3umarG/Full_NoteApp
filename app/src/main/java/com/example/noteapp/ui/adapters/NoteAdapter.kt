@@ -40,6 +40,13 @@ class NoteAdapter(
             }
         }
 
+        fun onLongClick(note: Note , view: View){
+            view.setOnLongClickListener {
+                listener.onLongItemClick(note, view)
+                true
+            }
+        }
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NoteViewHolder {
@@ -51,6 +58,7 @@ class NoteAdapter(
     override fun onBindViewHolder(holder: NoteViewHolder, position: Int) {
         holder.bind(listOfNotes[position])
         holder.onClick(listOfNotes[position])
+        holder.onLongClick(listOfNotes[position] , holder.itemView)
     }
 
     override fun getItemCount(): Int {
@@ -61,4 +69,6 @@ class NoteAdapter(
 
 interface OnItemClickListener {
     fun onItemClick(note: Note)
+
+    fun onLongItemClick(note: Note , view : View)
 }
