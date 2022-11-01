@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -14,6 +15,7 @@ import com.example.noteapp.R
 import com.example.noteapp.databinding.FragmentNotesBinding
 import com.example.noteapp.models.Note
 import com.example.noteapp.ui.adapters.NoteAdapter
+import com.example.noteapp.ui.adapters.OnItemClickListener
 import com.example.noteapp.ui.viewmodel.NoteViewModel
 import com.example.noteapp.ui.viewmodel.NoteViewModelFactory
 
@@ -71,7 +73,12 @@ class NotesFragment : Fragment() {
         binding.imageViewNoData.visibility = View.GONE
         binding.recyclerView.visibility = View.VISIBLE
 
-        val noteAdapter = NoteAdapter(notes.toMutableList())
+        val noteAdapter = NoteAdapter(notes.toMutableList() , object : OnItemClickListener{
+            override fun onItemClick(note: Note) {
+                val action = NotesFragmentDirections.actionNotesFragmentToSaveOrDeleteFragment(note)
+                findNavController().navigate(action)
+            }
+        })
         binding.recyclerView.apply {
             adapter = noteAdapter
             layoutManager = LinearLayoutManager(context)

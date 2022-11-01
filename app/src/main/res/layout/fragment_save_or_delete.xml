@@ -30,7 +30,7 @@
 
 
                 <ImageView
-                    android:id="@+id/imageView"
+                    android:id="@+id/backArrow"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:contentDescription="IMG"
@@ -40,12 +40,13 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/noteEditedOn"
+                    android:id="@+id/noteEditedOnUpdate"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="8dp"
                     android:ellipsize="end"
                     android:fontFamily="@font/google_sans_regular"
+                    android:gravity="center"
                     android:maxLines="1"
                     android:text="Edited On"
                     android:textAlignment="center"
@@ -53,15 +54,17 @@
                     android:textSize="18sp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/imageSave"
-                    app:layout_constraintStart_toEndOf="@+id/imageView"
+                    app:layout_constraintEnd_toStartOf="@+id/imageSaveUpdate"
+                    app:layout_constraintStart_toEndOf="@+id/backArrow"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
-                    android:id="@+id/imageSave"
+                    android:id="@+id/imageSaveUpdate"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
+                    android:clickable="true"
                     android:contentDescription="SAV IMG"
+                    android:focusable="true"
                     android:src="@drawable/ic_baseline_save_24"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -97,7 +100,7 @@
                 android:paddingHorizontal="16dp">
 
                 <EditText
-                    android:id="@+id/etTitle"
+                    android:id="@+id/etTitleUpdate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
@@ -116,7 +119,7 @@
                     tools:layout_editor_absoluteY="16dp" />
 
                 <EditText
-                    android:id="@+id/etContent"
+                    android:id="@+id/etContentUpdate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
@@ -126,7 +129,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/etTitle" />
+                    app:layout_constraintTop_toBottomOf="@id/etTitleUpdate" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -139,12 +142,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
+        android:contentDescription="FAB Color"
         android:src="@drawable/ic_baseline_color_lens_24"
         app:backgroundTint="@color/purple"
         app:fabSize="normal"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:contentDescription="FAB Color" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

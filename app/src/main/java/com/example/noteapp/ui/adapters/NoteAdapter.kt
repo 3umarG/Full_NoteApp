@@ -16,6 +16,7 @@ import com.google.android.material.textview.MaterialTextView
 
 class NoteAdapter(
     private val listOfNotes: MutableList<Note>,
+    private val listener: OnItemClickListener
 ) : RecyclerView.Adapter<NoteAdapter.NoteViewHolder>() {
 
     inner class NoteViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
@@ -32,6 +33,13 @@ class NoteAdapter(
             view.startAnimation(animation)
         }
 
+
+        fun onClick(note : Note){
+            view.setOnClickListener {
+                listener.onItemClick(note)
+            }
+        }
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NoteViewHolder {
@@ -42,9 +50,15 @@ class NoteAdapter(
 
     override fun onBindViewHolder(holder: NoteViewHolder, position: Int) {
         holder.bind(listOfNotes[position])
+        holder.onClick(listOfNotes[position])
     }
 
     override fun getItemCount(): Int {
         return listOfNotes.size
     }
+}
+
+
+interface OnItemClickListener {
+    fun onItemClick(note: Note)
 }
