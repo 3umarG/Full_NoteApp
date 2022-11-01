@@ -11,12 +11,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.PopupMenu
+import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.getSystemService
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.noteapp.R
 import com.example.noteapp.databinding.FragmentNotesBinding
 import com.example.noteapp.models.Note
@@ -31,6 +33,9 @@ class NotesFragment : Fragment() {
     private lateinit var binding: FragmentNotesBinding
     private lateinit var noteViewModel: NoteViewModel
     private lateinit var noteViewModelFactory: NoteViewModelFactory
+
+    private var layout: RecyclerViewLayout = RecyclerViewLayout.LINEAR
+    private var currentData: List<Note>? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -48,12 +53,15 @@ class NotesFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val fab = binding.fabAddNote
+        val gridButton = binding.gridView
+        val linearView = binding.linearView
 
         noteViewModel.getAllNotes().observe(viewLifecycleOwner, Observer { notes ->
             if (notes.isEmpty()) {
                 binding.imageViewNoData.visibility = View.VISIBLE
                 binding.recyclerView.visibility = View.GONE
             } else {
+                currentData = notes
                 setRecyclerView(notes)
             }
 
@@ -87,6 +95,7 @@ class NotesFragment : Fragment() {
                     } else {
                         binding.imageViewNoData.visibility = View.GONE
                         binding.imageViewNoData.visibility = View.VISIBLE
+                        currentData = notes
                         setRecyclerView(notes)
                     }
 
@@ -97,9 +106,36 @@ class NotesFragment : Fragment() {
 
             }
         })
+
+        binding.gridView.setOnClickListener {
+            layout = RecyclerViewLayout.GRID
+            gridButton.setColorFilter(
+                ContextCompat.getColor(requireContext(), R.color.purple_500),
+                android.graphics.PorterDuff.Mode.SRC_IN
+            )
+            linearView.setColorFilter(
+                ContextCompat.getColor(requireContext(), R.color.grey),
+                android.graphics.PorterDuff.Mode.SRC_IN
+            )
+            setRecyclerView()
+        }
+
+
+        binding.linearView.setOnClickListener {
+            layout = RecyclerViewLayout.LINEAR
+            gridButton.setColorFilter(
+                ContextCompat.getColor(requireContext(), R.color.grey),
+                android.graphics.PorterDuff.Mode.SRC_IN
+            )
+            linearView.setColorFilter(
+                ContextCompat.getColor(requireContext(), R.color.purple_500),
+                android.graphics.PorterDuff.Mode.SRC_IN
+            )
+            setRecyclerView()
+        }
     }
 
-    private fun setRecyclerView(notes: List<Note>) {
+    private fun setRecyclerView(notes: List<Note> = currentData!!) {
         binding.imageViewNoData.visibility = View.GONE
         binding.recyclerView.visibility = View.VISIBLE
 
@@ -110,12 +146,14 @@ class NotesFragment : Fragment() {
             }
 
             override fun onLongItemClick(note: Note, view: View) {
-                popUpMenu(note , view)
+                popUpMenu(note, view)
             }
         })
         binding.recyclerView.apply {
             adapter = noteAdapter
-            layoutManager = LinearLayoutManager(context)
+            layoutManager =
+                if (layout == RecyclerViewLayout.LINEAR) LinearLayoutManager(context)
+                else StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL)
         }
     }
 
@@ -132,6 +170,11 @@ class NotesFragment : Fragment() {
         }
         popup.inflate(R.menu.popup_menu)
         popup.show()
+    }
+
+    enum class RecyclerViewLayout {
+        LINEAR,
+        GRID,
     }
 
 }

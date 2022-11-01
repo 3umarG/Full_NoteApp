@@ -30,26 +30,28 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/google_sans_bold"
+                    android:gravity="start"
                     android:text="@string/my_notes"
+                    android:textAlignment="textStart"
                     android:textColor="@color/purple_500"
                     android:textSize="35sp"
-                    android:textAlignment="textStart"
-                    android:gravity="start"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInput"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="15dp"
                     android:hint="@string/search"
+                    android:windowSoftInputMode="stateHidden"
                     app:endIconMode="clear_text"
                     app:helperText="Note title"
-                    android:windowSoftInputMode="stateHidden"                    app:helperTextTextColor="@color/purple_500"
+                    app:helperTextTextColor="@color/purple_500"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="parent"
@@ -60,11 +62,58 @@
                         android:id="@+id/search"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:windowSoftInputMode="stateHidden"
                         android:inputType="text"
-                        />
+                        android:windowSoftInputMode="stateHidden" />
 
                 </com.google.android.material.textfield.TextInputLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/textInput">
+
+                    <TextView
+                        android:id="@+id/simpleText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="items :"
+                        android:textSize="25sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageView
+                        android:id="@+id/gridView"
+                        android:layout_width="25dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_height="25dp"
+                        android:src="@drawable/ic_baseline_grid_on_24"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/simpleText"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:tint="@color/grey"
+                        android:contentDescription="G" />
+
+                    <ImageView
+                        android:id="@+id/linearView"
+                        android:layout_width="25dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_height="25dp"
+                        android:src="@drawable/ic_baseline_table_rows_24"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/gridView"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:tint="@color/purple_500"
+                        android:contentDescription="G" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,6 +5,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import kotlinx.android.parcel.Parcelize
 import java.text.DateFormat
+import java.text.SimpleDateFormat
 
 
 @Parcelize
@@ -20,7 +21,7 @@ data class Note(
 ) : Parcelable {
     val getDate : String
         get() {
-            return DateFormat.getDateTimeInstance().format(date)
+            return SimpleDateFormat("EEE-dd-MM-yyyy").format(date)
         }
 
 }
