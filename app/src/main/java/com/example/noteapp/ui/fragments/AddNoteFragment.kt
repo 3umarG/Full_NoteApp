@@ -49,7 +49,7 @@ class AddNoteFragment : Fragment() {
             val date: String = DateFormat.getDateTimeInstance().format(System.currentTimeMillis())
 
             if (title.isNotEmpty() && content.isNotEmpty()) {
-                noteViewModel.addNote(Note(0, title, content, date, 1))
+                noteViewModel.addNote(Note(0, title, content, System.currentTimeMillis(), 1))
                 val action = AddNoteFragmentDirections.actionAddNoteFragmentToNotesFragment()
                 findNavController().navigate(action)
             } else {

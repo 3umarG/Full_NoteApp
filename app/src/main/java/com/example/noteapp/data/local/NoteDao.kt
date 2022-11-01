@@ -20,7 +20,7 @@ interface NoteDao {
     suspend fun deleteNote(note: Note)
 
     // Get All
-    @Query("SELECT * FROM notes ORDER BY id ASC")
+    @Query("SELECT * FROM notes ORDER BY date DESC")
     fun getAllNotes() : LiveData<List<Note>>
 
     // Search on Note by using title / content

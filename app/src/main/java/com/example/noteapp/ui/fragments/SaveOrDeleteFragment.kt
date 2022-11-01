@@ -46,7 +46,7 @@ class SaveOrDeleteFragment : Fragment() {
         // Get the value from args .
         val titleStr: String = args.note.title
         val contentStr: String = args.note.content
-        val editedOnStr: String = "Edited on : ${args.note.date}"
+        val editedOnStr: String = "Edited on : ${args.note.getDate}"
 
         // Set these values to Views
         title.setText(titleStr)
@@ -65,7 +65,7 @@ class SaveOrDeleteFragment : Fragment() {
                         args.note.id,
                         title.text.toString(),
                         content.text.toString(),
-                        DateFormat.getDateTimeInstance().format(System.currentTimeMillis())
+                        System.currentTimeMillis()
                     )
                 )
                 back()

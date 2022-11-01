@@ -26,7 +26,7 @@ class NoteAdapter(
 
         fun bind(note: Note) {
             noteItemContent.text = note.content
-            noteItemDate.text = note.date
+            noteItemDate.text = note.getDate
             noteItemTitle.text = note.title
 
             val animation = android.view.animation.AnimationUtils.loadAnimation(view.context, android.R.anim.slide_in_left)
