@@ -21,15 +21,15 @@ class NoteViewModel(application: Application) : AndroidViewModel(application) {
         repository = NoteRepository(noteData)
     }
 
-    suspend fun addNote(note: Note) = viewModelScope.launch(Dispatchers.IO) {
+    fun addNote(note: Note) = viewModelScope.launch(Dispatchers.IO) {
         repository.insertNote(note)
     }
 
-    suspend fun updateNote(note: Note) = viewModelScope.launch(Dispatchers.IO) {
+    fun updateNote(note: Note) = viewModelScope.launch(Dispatchers.IO) {
         repository.updateNote(note)
     }
 
-    suspend fun deleteNote(note: Note) = viewModelScope.launch(Dispatchers.IO) {
+    fun deleteNote(note: Note) = viewModelScope.launch(Dispatchers.IO) {
         repository.deleteNote(note)
     }
 

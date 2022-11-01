@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_notesFragment_to_saveOrDeleteFragment"
             app:destination="@id/saveOrDeleteFragment" />
+        <action
+            android:id="@+id/action_notesFragment_to_addNoteFragment"
+            app:destination="@id/addNoteFragment" />
     </fragment>
     <fragment
         android:id="@+id/saveOrDeleteFragment"
@@ -24,8 +27,15 @@
             app:destination="@id/notesFragment" />
         <argument
             android:name="Note"
-            app:argType="com.example.noteapp.models.Note"
-            app:nullable="true"
-            android:defaultValue="@null" />
+            app:argType="com.example.noteapp.models.Note" />
+    </fragment>
+    <fragment
+        android:id="@+id/addNoteFragment"
+        android:name="com.example.noteapp.ui.fragments.AddNoteFragment"
+        android:label="fragment_add_note"
+        tools:layout="@layout/fragment_add_note" >
+        <action
+            android:id="@+id/action_addNoteFragment_to_notesFragment"
+            app:destination="@id/notesFragment" />
     </fragment>
 </navigation>

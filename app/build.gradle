@@ -92,17 +92,15 @@ dependencies {
     // Kotlin Extensions and Coroutines support for Room
     implementation "androidx.room:room-ktx:2.4.3"
 
-    // RecyclerView Animator
-    implementation 'jp.wasabeef:recyclerview-animators:3.0.0'
-
     //color picker library
     implementation 'com.thebluealliance:spectrum:0.7.1'
 
-    implementation 'io.github.yahiaangelo.markdownedittext:markdownedittext:1.1.1'
     implementation "io.noties.markwon:core:4.6.0"
     implementation "io.noties.markwon:ext-strikethrough:4.6.0"
     implementation "io.noties.markwon:ext-tasklist:4.6.0"
 
-    implementation 'jp.wasabeef:richeditor-android:2.0.0'
+
+    implementation 'com.github.imtuann:FloatingActionButtonExpandable:1.1.2'
+
 
 }
