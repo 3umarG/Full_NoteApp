@@ -136,25 +136,32 @@ class NotesFragment : Fragment() {
     }
 
     private fun setRecyclerView(notes: List<Note> = currentData!!) {
-        binding.imageViewNoData.visibility = View.GONE
-        binding.recyclerView.visibility = View.VISIBLE
+        if (notes.isNotEmpty()){
+            binding.imageViewNoData.visibility = View.GONE
+            binding.recyclerView.visibility = View.VISIBLE
 
-        val noteAdapter = NoteAdapter(notes.toMutableList(), object : OnItemClickListener {
-            override fun onItemClick(note: Note) {
-                val action = NotesFragmentDirections.actionNotesFragmentToSaveOrDeleteFragment(note)
-                findNavController().navigate(action)
-            }
+            val noteAdapter = NoteAdapter(notes.toMutableList(), object : OnItemClickListener {
+                override fun onItemClick(note: Note) {
+                    val action = NotesFragmentDirections.actionNotesFragmentToSaveOrDeleteFragment(note)
+                    findNavController().navigate(action)
+                }
 
-            override fun onLongItemClick(note: Note, view: View) {
-                popUpMenu(note, view)
+                override fun onLongItemClick(note: Note, view: View) {
+                    popUpMenu(note, view)
+                }
+            })
+            binding.recyclerView.apply {
+                adapter = noteAdapter
+                layoutManager =
+                    if (layout == RecyclerViewLayout.LINEAR) LinearLayoutManager(context)
+                    else StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL)
             }
-        })
-        binding.recyclerView.apply {
-            adapter = noteAdapter
-            layoutManager =
-                if (layout == RecyclerViewLayout.LINEAR) LinearLayoutManager(context)
-                else StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL)
         }
+        else {
+            binding.imageViewNoData.visibility = View.VISIBLE
+            binding.recyclerView.visibility = View.GONE
+        }
+
     }
 
     private fun popUpMenu(note: Note, view: View) {
@@ -163,6 +170,9 @@ class NotesFragment : Fragment() {
             when (it.itemId) {
                 R.id.popup_delete -> {
                     noteViewModel.deleteNote(note)
+                    noteViewModel.getAllNotes().observeForever { list ->
+                        currentData = list
+                    }
                 }
 
             }
