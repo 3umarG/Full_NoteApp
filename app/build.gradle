@@ -103,5 +103,10 @@ dependencies {
 
     implementation 'com.github.imtuann:FloatingActionButtonExpandable:1.1.2'
 
+    def lottieVersion = "3.4.0"
+    implementation "com.airbnb.android:lottie:$lottieVersion"
+
+    implementation 'androidx.core:core-splashscreen:1.0.0'
+    implementation 'com.github.amrdeveloper:lottiedialog:1.0.0'
 
 }

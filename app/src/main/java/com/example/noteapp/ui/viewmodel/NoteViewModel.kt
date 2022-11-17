@@ -9,16 +9,24 @@ import com.example.noteapp.data.local.NoteDatabase
 import com.example.noteapp.models.Note
 import com.example.noteapp.repo.NoteRepository
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 class NoteViewModel(application: Application) : AndroidViewModel(application) {
 
     private val repository: NoteRepository
-
+    private val _isLoading = MutableStateFlow(true)
+    val isLoading = _isLoading.asStateFlow()
 
     init {
         val noteData: NoteDao = NoteDatabase.getNoteDatabase(application).getDao()
         repository = NoteRepository(noteData)
+        viewModelScope.launch {
+            delay(3000)
+            _isLoading.value = false
+        }
     }
 
     fun addNote(note: Note) = viewModelScope.launch(Dispatchers.IO) {

@@ -91,26 +91,26 @@
                     <ImageView
                         android:id="@+id/gridView"
                         android:layout_width="25dp"
-                        android:layout_marginStart="8dp"
                         android:layout_height="25dp"
+                        android:layout_marginStart="8dp"
+                        android:contentDescription="G"
                         android:src="@drawable/ic_baseline_grid_on_24"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toEndOf="@id/simpleText"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:tint="@color/grey"
-                        android:contentDescription="G" />
+                        app:tint="@color/grey" />
 
                     <ImageView
                         android:id="@+id/linearView"
                         android:layout_width="25dp"
-                        android:layout_marginStart="8dp"
                         android:layout_height="25dp"
+                        android:layout_marginStart="8dp"
+                        android:contentDescription="G"
                         android:src="@drawable/ic_baseline_table_rows_24"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toEndOf="@id/gridView"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:tint="@color/purple_500"
-                        android:contentDescription="G" />
+                        app:tint="@color/purple_500" />
 
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -135,23 +135,26 @@
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
         tools:listitem="@layout/custom_recycler_view_item_note" />
 
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/noNotesLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ImageView
-            android:id="@+id/imageViewNoData"
-            android:layout_width="250dp"
-            android:layout_height="250dp"
-            android:contentDescription="No"
-            android:src="@drawable/ic_no_data"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="parent"
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/lottieNoNotes"
+            android:layout_width="350dp"
+            android:layout_height="350dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="55dp"
+            android:visibility="gone"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/no_note" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
@@ -161,9 +164,9 @@
         android:layout_height="wrap_content"
         android:layout_gravity="end|bottom"
         android:layout_margin="16dp"
+        app:fab_bg_color="@color/purple_500"
         app:fab_content="Add Note"
         app:fab_duration="200"
-        app:fab_bg_color="@color/purple_500"
         app:fab_icon="@drawable/ic_round_add_24" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

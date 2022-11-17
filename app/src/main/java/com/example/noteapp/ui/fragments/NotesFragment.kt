@@ -19,6 +19,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import com.amrdeveloper.lottiedialog.LottieDialog
 import com.example.noteapp.R
 import com.example.noteapp.databinding.FragmentNotesBinding
 import com.example.noteapp.models.Note
@@ -58,7 +59,7 @@ class NotesFragment : Fragment() {
 
         noteViewModel.getAllNotes().observe(viewLifecycleOwner, Observer { notes ->
             if (notes.isEmpty()) {
-                binding.imageViewNoData.visibility = View.VISIBLE
+                binding.lottieNoNotes.visibility = View.VISIBLE
                 binding.recyclerView.visibility = View.GONE
             } else {
                 currentData = notes
@@ -90,11 +91,11 @@ class NotesFragment : Fragment() {
             override fun onTextChanged(text: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 noteViewModel.searchNote(text.toString()).observe(viewLifecycleOwner) { notes ->
                     if (notes.isEmpty()) {
-                        binding.imageViewNoData.visibility = View.VISIBLE
+                        binding.lottieNoNotes.visibility = View.VISIBLE
                         binding.recyclerView.visibility = View.GONE
                     } else {
-                        binding.imageViewNoData.visibility = View.GONE
-                        binding.imageViewNoData.visibility = View.VISIBLE
+                        binding.lottieNoNotes.visibility = View.GONE
+                        binding.lottieNoNotes.visibility = View.VISIBLE
                         currentData = notes
                         setRecyclerView(notes)
                     }
@@ -120,7 +121,6 @@ class NotesFragment : Fragment() {
             setRecyclerView()
         }
 
-
         binding.linearView.setOnClickListener {
             layout = RecyclerViewLayout.LINEAR
             gridButton.setColorFilter(
@@ -137,7 +137,7 @@ class NotesFragment : Fragment() {
 
     private fun setRecyclerView(notes: List<Note> = currentData!!) {
         if (notes.isNotEmpty()){
-            binding.imageViewNoData.visibility = View.GONE
+            binding.lottieNoNotes.visibility = View.GONE
             binding.recyclerView.visibility = View.VISIBLE
 
             val noteAdapter = NoteAdapter(notes.toMutableList(), object : OnItemClickListener {
@@ -158,7 +158,7 @@ class NotesFragment : Fragment() {
             }
         }
         else {
-            binding.imageViewNoData.visibility = View.VISIBLE
+            binding.lottieNoNotes.visibility = View.VISIBLE
             binding.recyclerView.visibility = View.GONE
         }
 
@@ -170,6 +170,14 @@ class NotesFragment : Fragment() {
             when (it.itemId) {
                 R.id.popup_delete -> {
                     noteViewModel.deleteNote(note)
+                    val lottieDialogue = LottieDialog(context)
+                    lottieDialogue.apply {
+                        setAnimation(R.raw.deleted_successfully)
+                        setAnimationRepeatCount(0)
+                        setAutoPlayAnimation(true)
+                        setMessage("Deleted Successfully !!")
+
+                    }.show()
                     noteViewModel.getAllNotes().observeForever { list ->
                         currentData = list
                     }

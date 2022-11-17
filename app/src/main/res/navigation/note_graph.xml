@@ -38,4 +38,17 @@
             android:id="@+id/action_addNoteFragment_to_notesFragment"
             app:destination="@id/notesFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/splashFragment"
+        android:name="com.example.noteapp.ui.fragments.SplashFragment"
+        android:label="fragment_splash"
+        tools:layout="@layout/fragment_splash" >
+        <action
+            android:id="@+id/action_splashFragment_to_notesFragment"
+            app:destination="@id/notesFragment"
+            app:enterAnim="@anim/nav_default_pop_enter_anim"
+            app:exitAnim="@anim/nav_default_pop_exit_anim"
+            app:popUpTo="@id/splashFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
 </navigation>
