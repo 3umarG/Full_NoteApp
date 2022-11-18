@@ -24,7 +24,7 @@ class NoteViewModel(application: Application) : AndroidViewModel(application) {
         val noteData: NoteDao = NoteDatabase.getNoteDatabase(application).getDao()
         repository = NoteRepository(noteData)
         viewModelScope.launch {
-            delay(3000)
+            delay(3000L)
             _isLoading.value = false
         }
     }

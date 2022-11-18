@@ -9,17 +9,19 @@ import com.example.noteapp.R
 import com.example.noteapp.ui.viewmodel.NoteViewModel
 
 class MainActivity : AppCompatActivity() {
-    private val viewModel : NoteViewModel by viewModels()
+    private val viewModel: NoteViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        installSplashScreen()
+//        installSplashScreen().apply {
+//            setKeepOnScreenCondition {
+//                viewModel.isLoading.value
+//            }
+//        }
         setContentView(R.layout.activity_main)
 
 
-        installSplashScreen().apply {
-            setKeepOnScreenCondition{
-                viewModel.isLoading.value
-            }
-        }
+
         supportActionBar?.hide()
 
     }

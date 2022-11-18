@@ -1,6 +1,7 @@
 package com.example.noteapp.ui.fragments
 
 import android.animation.Animator
+import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -20,11 +21,22 @@ class SplashFragment : Fragment() {
     ): View {
         // Inflate the layout for this fragment
         binding = FragmentSplashBinding.inflate(inflater, container, false)
+        requireActivity().setTheme(R.style.Theme_AppCompat_Splash)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val content = activity?.findViewById<View>(android.R.id.content)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            content?.viewTreeObserver?.addOnDrawListener { false }
+        }
+        splash()
+
+    }
+
+    private fun splash() {
         val directions = SplashFragmentDirections.actionSplashFragmentToNotesFragment()
         val navHostFragment =
             activity?.let {

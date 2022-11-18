@@ -1,12 +1,10 @@
 package com.example.noteapp.ui.fragments
 
-import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
@@ -47,6 +45,7 @@ class NotesFragment : Fragment() {
         binding = FragmentNotesBinding.inflate(inflater, container, false)
         noteViewModelFactory = NoteViewModelFactory(requireActivity().application)
         noteViewModel = ViewModelProvider(this, noteViewModelFactory)[NoteViewModel::class.java]
+        requireActivity().setTheme(R.style.Theme_NoteApp)
         return binding.root
     }
 
