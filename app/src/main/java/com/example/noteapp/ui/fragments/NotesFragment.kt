@@ -1,5 +1,6 @@
 package com.example.noteapp.ui.fragments
 
+import android.media.Image
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -8,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import android.widget.ImageView
 import android.widget.PopupMenu
 import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.getSystemService
@@ -34,7 +36,7 @@ class NotesFragment : Fragment() {
     private lateinit var noteViewModelFactory: NoteViewModelFactory
 
     private var layout: RecyclerViewLayout = RecyclerViewLayout.LINEAR
-    private var currentData: List<Note>? = null
+    private var currentData: List<Note>? = emptyList()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -53,8 +55,8 @@ class NotesFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val fab = binding.fabAddNote
-        val gridButton = binding.gridView
-        val linearView = binding.linearView
+        val gridButton = view.findViewById<ImageView>(R.id.gridView)
+        val linearView = view.findViewById<ImageView>(R.id.linearView)
 
         noteViewModel.getAllNotes().observe(viewLifecycleOwner, Observer { notes ->
             if (notes.isEmpty()) {
@@ -107,9 +109,9 @@ class NotesFragment : Fragment() {
             }
         })
 
-        binding.gridView.setOnClickListener {
+        gridButton.setOnClickListener {
             layout = RecyclerViewLayout.GRID
-            gridButton.setColorFilter(
+            (it as ImageView).setColorFilter(
                 ContextCompat.getColor(requireContext(), R.color.purple_500),
                 android.graphics.PorterDuff.Mode.SRC_IN
             )
@@ -120,13 +122,13 @@ class NotesFragment : Fragment() {
             setRecyclerView()
         }
 
-        binding.linearView.setOnClickListener {
+        linearView.setOnClickListener {
             layout = RecyclerViewLayout.LINEAR
             gridButton.setColorFilter(
                 ContextCompat.getColor(requireContext(), R.color.grey),
                 android.graphics.PorterDuff.Mode.SRC_IN
             )
-            linearView.setColorFilter(
+            (it as ImageView).setColorFilter(
                 ContextCompat.getColor(requireContext(), R.color.purple_500),
                 android.graphics.PorterDuff.Mode.SRC_IN
             )
@@ -135,13 +137,14 @@ class NotesFragment : Fragment() {
     }
 
     private fun setRecyclerView(notes: List<Note> = currentData!!) {
-        if (notes.isNotEmpty()){
+        if (notes.isNotEmpty()) {
             binding.lottieNoNotes.visibility = View.GONE
             binding.recyclerView.visibility = View.VISIBLE
 
             val noteAdapter = NoteAdapter(notes.toMutableList(), object : OnItemClickListener {
                 override fun onItemClick(note: Note) {
-                    val action = NotesFragmentDirections.actionNotesFragmentToSaveOrDeleteFragment(note)
+                    val action =
+                        NotesFragmentDirections.actionNotesFragmentToSaveOrDeleteFragment(note)
                     findNavController().navigate(action)
                 }
 
@@ -155,8 +158,7 @@ class NotesFragment : Fragment() {
                     if (layout == RecyclerViewLayout.LINEAR) LinearLayoutManager(context)
                     else StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL)
             }
-        }
-        else {
+        } else {
             binding.lottieNoNotes.visibility = View.VISIBLE
             binding.recyclerView.visibility = View.GONE
         }
